@@ -1,0 +1,7 @@
+# Folders to ignore
+/task_1/node_modules
+/task_1/.idea
+/task_2/node_modules
+/task_2/.idea
+/task_3/node_modules
+/task_3/.idea

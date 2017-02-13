@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = "myModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Task third</title>
+</head>
+<body ng-controller = "myCtrl">
+
+    <textarea type="text" ng-model = "dataFromServer" style="width: 150px; height:75px;"></textarea>
+    <button id="send">Send ajax</button>
+
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="angular.js"></script>
+    <script>
+        var module = angular.module("myModule", []);
+        module.controller("myCtrl", function($scope, $http) {
+
+            $('#send').click(function() {
+                $.when($http.get('/get1'), $http.get('/get2')).then(function (data1, data2) {
+//                $scope.dataFromServer = response.data;
+                    $scope.dataFromServer = data1.data + '\n' + data2.data + '\n'+'Get3 SEND'+'\n';
+                    $http.get('/get3').then(function (data3) {
+                        $scope.dataFromServer += data3.data
+                    }).catch(function(err){
+                        document.write("Something wrong, please look in console");
+                        console.log(err);
+                    });
+                }).catch(function(err, err2){
+                    document.write("Something wrong, please look in console");
+                    console.log(err);
+                    console.log(err2);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
